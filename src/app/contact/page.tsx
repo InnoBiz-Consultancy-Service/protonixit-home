@@ -11,9 +11,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { MapPin, Phone, Mail } from "lucide-react";
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
+import { InlineWidget } from "react-calendly";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -25,7 +25,6 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
     console.log("Form submitted:", formData);
     alert("Thank you for your message! We will get back to you soon.");
     setFormData({ name: "", email: "", phone: "", message: "" });
@@ -41,7 +40,7 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="min-h-screen pt-24">
+    <section className="min-h-screen pt-24">
       {/* Hero Section */}
       <section className="py-20 px-4 lg:px-8">
         <div className="container mx-auto">
@@ -62,62 +61,19 @@ export default function ContactPage() {
         <div className="container mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Contact Info Cards */}
-            <div className="space-y-6">
-              <Card className="border-border">
-                <CardContent className="pt-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <MapPin className="text-primary" size={24} />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold mb-2">Our Office</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Nobopuspo 124, Jotorpur
-                        <br />
-                        Sylhet, Bangladesh
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-border">
-                <CardContent className="pt-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Phone className="text-primary" size={24} />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold mb-2">Phone</h3>
-                      <a
-                        href="tel:+8801234567890"
-                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        +880 123 456 7890
-                      </a>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-border">
-                <CardContent className="pt-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Mail className="text-primary" size={24} />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold mb-2">Email</h3>
-                      <a
-                        href="mailto:info@techbangla.com"
-                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        info@protonixit.com
-                      </a>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+            {/* Calendly Widget */}
+            <div className="h-[calc(85vh-120px)]">
+              <InlineWidget
+                url="https://calendly.com/salimintelligency/30min"
+                styles={{ height: "100%", width: "100%" }}
+                pageSettings={{
+                  backgroundColor: "ffffff",
+                  hideEventTypeDetails: false,
+                  hideLandingPageDetails: false,
+                  primaryColor: "D4AF37",
+                  textColor: "1a2a2c",
+                }}
+              />
             </div>
 
             {/* Contact Form */}
@@ -126,8 +82,8 @@ export default function ContactPage() {
                 <CardHeader>
                   <CardTitle className="text-2xl">Send Us a Message</CardTitle>
                   <CardDescription>
-                    Fill out the form below and we&apos;ll get back to you within 24
-                    hours
+                    Fill out the form below and we&apos;ll get back to you
+                    within 24 hours
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -219,6 +175,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-    </main>
+    </section>
   );
 }

@@ -31,6 +31,7 @@ export default function ServicesPage() {
         "E-commerce solutions with secure payment integration",
         "Content management systems (CMS)",
         "Custom web applications tailored to your needs",
+        "Personal portfolio"
       ],
     },
     {
@@ -49,20 +50,21 @@ export default function ServicesPage() {
       ],
     },
     {
-      icon: TrendingUp,
-      title: "Digital Marketing",
+      icon: TrendingUp, 
+      title: "Video Editing",
       description:
-        "Comprehensive digital marketing strategies to grow your online presence",
+        "Professional video editing services to create engaging and high-quality visual content.",
       image:
-        "https://s44783.pcdn.co/in/wp-content/uploads/sites/3/2022/02/digital-marketing-2.jpg.optimal.jpg",
+        "https://www.adorama.com/alc/wp-content/uploads/2021/03/video-editing-tips-beginners-feature.jpg",
       benefits: [
-        "Search Engine Optimization (SEO)",
-        "Social media marketing and management",
-        "Pay-per-click (PPC) advertising campaigns",
-        "Content marketing and email campaigns",
-        "Analytics and performance tracking",
+        "Cinematic and professional video editing",
+        "Motion graphics and visual effects (VFX)",
+        "Color correction and grading",
+        "Audio enhancement and background music",
+        "Short-form content for social media (Reels, Shorts, TikTok)",
       ],
     },
+
     {
       icon: Palette,
       title: "UI/UX Design",

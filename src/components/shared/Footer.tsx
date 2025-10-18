@@ -1,5 +1,5 @@
-import Link from "next/link"
-import { Facebook, Twitter, Linkedin, Instagram } from "lucide-react"
+import Link from "next/link";
+import { Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
 
 export function Footer() {
   return (
@@ -8,24 +8,37 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <h3 className="text-xl font-bold text-primary">TechBangla</h3>
+            <h3 className="text-xl font-bold text-primary">ProtonixIt</h3>
             <p className="text-sm text-muted-foreground">
-              Empowering your business with cutting-edge technology solutions.
+              We transform your ideas into effective elegant code, from web
+              development to app development
             </p>
             <div className="flex gap-4">
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link
+                href="#"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
                 <Facebook size={20} />
                 <span className="sr-only">Facebook</span>
               </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link
+                href="#"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
                 <Twitter size={20} />
                 <span className="sr-only">Twitter</span>
               </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link
+                href="#"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
                 <Linkedin size={20} />
                 <span className="sr-only">LinkedIn</span>
               </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link
+                href="#"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
                 <Instagram size={20} />
                 <span className="sr-only">Instagram</span>
               </Link>
@@ -37,22 +50,34 @@ export function Footer() {
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link
+                  href="/"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link
+                  href="/about"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link
+                  href="/services"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
                   Services
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link
+                  href="/contact"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
                   Contact
                 </Link>
               </li>
@@ -77,12 +102,18 @@ export function Footer() {
               <li>Nobopuspo 124, Jotorpur</li>
               <li>Sylhet, Bangladesh</li>
               <li className="pt-2">
-                <a href="mailto:info@techbangla.com" className="hover:text-primary transition-colors">
-                  info@techbangla.com
+                <a
+                  href="mailto:info@techbangla.com"
+                  className="hover:text-primary transition-colors"
+                >
+                  info@example.com
                 </a>
               </li>
               <li>
-                <a href="tel:+8801234567890" className="hover:text-primary transition-colors">
+                <a
+                  href="tel:+8801234567890"
+                  className="hover:text-primary transition-colors"
+                >
                   +880 123 456 7890
                 </a>
               </li>
@@ -91,9 +122,11 @@ export function Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} TechBangla. All rights reserved.</p>
+          <p>
+            &copy; {new Date().getFullYear()} ProtonixIt. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
-  )
+  );
 }
