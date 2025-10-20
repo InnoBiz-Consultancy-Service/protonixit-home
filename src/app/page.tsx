@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +19,7 @@ import {
 } from "lucide-react";
 import team from "../../public/images/team.jpg";
 import Image from "next/image";
+import HeroBanner from "@/components/Home/Banner/Banner";
 
 export default function HomePage() {
   const services = [
@@ -49,54 +51,7 @@ export default function HomePage() {
 
   return (
     <section className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative pt-40 pb-32 px-4 lg:px-8 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background" />
-
-        <div className="container mx-auto relative z-10">
-          <div className="max-w-5xl mx-auto text-center space-y-8">
-            <div className="space-y-6">
-              <h1 className="text-4xl md:text-7xl font-bold leading-tight text-balance">
-                Unlock your{" "}
-                <span className="bg-gradient-to-r from-primary via-primary to-primary/70 bg-clip-text text-transparent">
-                  Digital
-                </span>{" "}
-                potential
-              </h1>
-
-              <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed text-balance">
-                We transform{" "}
-                <span className="font-semibold text-foreground">
-                  your ideas into elegant code
-                </span>
-                , delivering sophisticated digital solutions from web
-                development to app development
-              </p>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button
-                size="lg"
-                asChild
-                className="shadow-lg hover:shadow-primary/50 transition-all duration-300 hover:scale-105"
-              >
-                <Link href="/contact">
-                  Get Started <ArrowRight className="ml-2" size={20} />
-                </Link>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                asChild
-                className="hover:bg-primary/5 transition-colors duration-300 bg-transparent"
-              >
-                <Link href="/services">View Services</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <HeroBanner />
       {/* Services Section */}
       <section className="py-24 px-4 lg:px-8 bg-secondary/30">
         <div className="container mx-auto">

@@ -1,130 +1,196 @@
 import Link from "next/link";
-import { Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+import {
+  Facebook,
+  Twitter,
+  Linkedin,
+  Instagram,
+  Mail,
+  MapPin,
+  Phone,
+  ArrowRight,
+} from "lucide-react";
+import Image from "next/image";
+import logo from "../../../public/images/protonixit.png";
 
 export function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-secondary border-t border-border">
-      <div className="container mx-auto px-4 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Company Info */}
-          <div className="space-y-4">
-            <h3 className="text-xl font-bold text-primary">ProtonixIt</h3>
-            <p className="text-sm text-muted-foreground">
-              We transform your ideas into effective elegant code, from web
-              development to app development
-            </p>
-            <div className="flex gap-4">
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                <Facebook size={20} />
-                <span className="sr-only">Facebook</span>
-              </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                <Twitter size={20} />
-                <span className="sr-only">Twitter</span>
-              </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                <Linkedin size={20} />
-                <span className="sr-only">LinkedIn</span>
-              </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                <Instagram size={20} />
-                <span className="sr-only">Instagram</span>
-              </Link>
+    <footer className="relative bg-gray-800 border-t border-border/50">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl opacity-30" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-primary/3 rounded-full blur-3xl opacity-20" />
+      </div>
+
+      <div className="container mx-auto px-4 lg:px-8 py-16 lg:py-20 relative z-10">
+        {/* Main Footer Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-12">
+          {/* Company Info Section */}
+          <div className="space-y-6 lg:col-span-1">
+            <div className="space-y-4">
+              <Image
+                src={logo || "/placeholder.svg"}
+                width={200}
+                height={200}
+                alt="Protonix It"
+                className="h-auto w-auto max-w-[180px]"
+              />
+              <p className="text-sm leading-relaxed text-gray-200">
+                We transform your ideas into elegant, effective digital
+                solutions. From concept to execution, we deliver excellence.
+              </p>
+            </div>
+
+            <div className="flex gap-3 pt-2">
+              {[
+                { Icon: Facebook, label: "Facebook", href: "#" },
+                { Icon: Twitter, label: "Twitter", href: "#" },
+                { Icon: Linkedin, label: "LinkedIn", href: "#" },
+                { Icon: Instagram, label: "Instagram", href: "#" },
+              ].map(({ Icon, label, href }) => (
+                <Link
+                  key={label}
+                  href={href}
+                  className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-primary/20"
+                  aria-label={label}
+                >
+                  <Icon size={18} />
+                </Link>
+              ))}
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className="font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link
-                  href="/"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/about"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  Services
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  Contact
-                </Link>
-              </li>
-            </ul>
+          {/* Quick Links Section */}
+          <div className="space-y-6">
+            <div>
+              <h4 className="font-semibold text-gray-200 mb-4 text-base flex items-center gap-2">
+                <span className="w-1 h-5 bg-primary rounded-full" />
+                Quick Links
+              </h4>
+              <ul className="space-y-3">
+                {[
+                  { label: "Home", href: "/" },
+                  { label: "About Us", href: "/about" },
+                  { label: "Services", href: "/services" },
+                  { label: "Contact", href: "/contact" },
+                ].map(({ label, href }) => (
+                  <li key={label}>
+                    <Link
+                      href={href}
+                      className="text-sm text-gray-200 hover:text-primary transition-colors duration-300 flex items-center gap-1 group"
+                    >
+                      <span className="opacity-0 group-hover:opacity-100 transition-opacity">
+                        <ArrowRight size={14} />
+                      </span>
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          {/* Services */}
-          <div>
-            <h4 className="font-semibold mb-4">Services</h4>
-            <ul className="space-y-2 text-sm">
-              <li className="text-muted-foreground">Web Development</li>
-              <li className="text-muted-foreground">App Development</li>
-              <li className="text-muted-foreground">Digital Marketing</li>
-              <li className="text-muted-foreground">UI/UX Design</li>
-            </ul>
+          {/* Services Section */}
+          <div className="space-y-6">
+            <div>
+              <h4 className="font-semibold text-gray-200 mb-4 text-base flex items-center gap-2">
+                <span className="w-1 h-5 bg-primary rounded-full" />
+                Services
+              </h4>
+              <ul className="space-y-3">
+                {[
+                  "Web Development",
+                  "App Development",
+                  "Graphics Design",
+                  "UI/UX Design",
+                  "Video Editing",
+                ].map((service) => (
+                  <li key={service}>
+                    <span className="text-sm text-gray-200 hover:text-primary transition-colors duration-300 cursor-pointer">
+                      {service}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          {/* Contact Info */}
-          <div>
-            <h4 className="font-semibold mb-4">Contact</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>Nobopuspo 124, Jotorpur</li>
-              <li>Sylhet, Bangladesh</li>
-              <li className="pt-2">
-                <a
-                  href="mailto:info@techbangla.com"
-                  className="hover:text-primary transition-colors"
-                >
-                  info@example.com
-                </a>
-              </li>
-              <li>
-                <a
-                  href="tel:+8801234567890"
-                  className="hover:text-primary transition-colors"
-                >
-                  +880 123 456 7890
-                </a>
-              </li>
-            </ul>
+          {/* Contact Info Section */}
+          <div className="space-y-6">
+            <div>
+              <h4 className="font-semibold text-gray-200 mb-4 text-base flex items-center gap-2">
+                <span className="w-1 h-5 bg-primary rounded-full" />
+                Contact
+              </h4>
+              <ul className="space-y-4">
+                <li className="flex gap-3 text-sm">
+                  <MapPin
+                    size={18}
+                    className="text-primary flex-shrink-0 mt-0.5"
+                  />
+                  <span className="text-gray-200">
+                    Nobopuspo 124, Jotorpur
+                    <br />
+                    Sylhet, Bangladesh
+                  </span>
+                </li>
+                <li>
+                  <a
+                    href="mailto:service@protonixit.com"
+                    className="flex gap-3 text-sm text-gray-200 hover:text-primary transition-colors duration-300 group"
+                  >
+                    <Mail
+                      size={18}
+                      className="text-primary flex-shrink-0 group-hover:scale-110 transition-transform"
+                    />
+                    <span>service@protonixit.com</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="tel:+8801581891023"
+                    className="flex gap-3 text-sm text-gray-200 hover:text-primary transition-colors duration-300 group"
+                  >
+                    <Phone
+                      size={18}
+                      className="text-primary flex-shrink-0 group-hover:scale-110 transition-transform"
+                    />
+                    <span>+880 1581-891023</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>
-            &copy; {new Date().getFullYear()} ProtonixIt. All rights reserved.
-          </p>
+        <div className="border-t border-border/50 pt-8">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <p className="text-sm text-gray-200">
+              &copy; {currentYear}{" "}
+              <span className="font-semibold text-primary">ProtonixIt</span>.
+              All rights reserved.
+            </p>
+            <div className="flex gap-6 text-sm">
+              <Link
+                href="#"
+                className="text-gray-200 hover:text-primary transition-colors duration-300"
+              >
+                Privacy Policy
+              </Link>
+              <Link
+                href="#"
+                className="text-gray-200 hover:text-primary transition-colors duration-300"
+              >
+                Terms of Service
+              </Link>
+              <Link
+                href="#"
+                className="text-gray-200 hover:text-primary transition-colors duration-300"
+              >
+                Sitemap
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
