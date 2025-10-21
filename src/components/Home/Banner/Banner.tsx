@@ -122,14 +122,19 @@ export default function HeroBanner() {
                 title="UI/UX Design"
                 description="User experiences that delight"
               />
-              <div className="bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl p-6 lg:p-8 border border-primary/20 flex flex-col justify-center items-center text-center hover:border-primary/40 transition-colors">
-                <p className="text-sm font-semibold text-primary uppercase tracking-widest">
-                  Ready to start?
-                </p>
-                <p className="text-foreground font-bold mt-2">
-                  Let&apos;s create together
-                </p>
-              </div>
+              <Link
+                className="bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl p-6 lg:p-8 border border-primary/20 flex flex-col justify-center items-center text-center hover:border-primary/40 transition-colors"
+                href={"/contact"}
+              >
+                <div>
+                  <p className="text-sm font-semibold text-primary uppercase tracking-widest">
+                    Ready to start?
+                  </p>
+                  <p className="text-foreground font-bold mt-2">
+                    Let&apos;s create together
+                  </p>
+                </div>
+              </Link>
             </div>
           </div>
         </div>
