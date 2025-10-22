@@ -101,26 +101,31 @@ export default function HeroBanner() {
                 icon={<Palette className="w-8 h-8" />}
                 title="Graphics Design"
                 description="Stunning visuals that captivate"
+                link="graphics-design"
               />
               <ServiceCard
                 icon={<Code className="w-8 h-8" />}
                 title="Web Development"
                 description="Powerful web solutions"
+                link="web-development"
               />
               <ServiceCard
                 icon={<Smartphone className="w-8 h-8" />}
                 title="App Development"
                 description="Mobile apps that engage"
+                link="app-development"
               />
               <ServiceCard
                 icon={<Film className="w-8 h-8" />}
                 title="Video Editing"
                 description="Cinematic storytelling"
+                link="video-editing"
               />
               <ServiceCard
                 icon={<Zap className="w-8 h-8" />}
                 title="UI/UX Design"
                 description="User experiences that delight"
+                link="ui-ux-design"
               />
               <Link
                 className="bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl p-6 lg:p-8 border border-primary/20 flex flex-col justify-center items-center text-center hover:border-primary/40 transition-colors"
@@ -146,19 +151,25 @@ export default function HeroBanner() {
 function ServiceCard({
   icon,
   title,
+  link,
   description,
 }: {
   icon: React.ReactNode;
   title: string;
+  link: string;
   description: string;
 }) {
   return (
-    <div className="bg-card border border-border rounded-2xl p-6 lg:p-8 hover:border-primary/50 hover:shadow-lg transition-all duration-300 group cursor-pointer">
-      <div className="text-primary mb-4 group-hover:scale-110 transition-transform duration-300">
-        {icon}
-      </div>
-      <h3 className="font-bold text-foreground mb-2">{title}</h3>
-      <p className="text-sm text-muted-foreground">{description}</p>
-    </div>
+    <>
+      <Link href={`/services/${link}`}>
+        <div className="bg-card border border-border rounded-2xl p-6 lg:p-8 hover:border-primary/50 hover:shadow-lg transition-all duration-300 group cursor-pointer">
+          <div className="text-primary mb-4 group-hover:scale-110 transition-transform duration-300">
+            {icon}
+          </div>
+          <h3 className="font-bold text-foreground mb-2">{title}</h3>
+          <p className="text-sm text-muted-foreground">{description}</p>
+        </div>
+      </Link>
+    </>
   );
 }
