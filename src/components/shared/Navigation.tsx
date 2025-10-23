@@ -6,10 +6,11 @@ import logo from "../../../public/images/protonixit.png";
 import Link from "next/link";
 import { Sheet, SheetClose, SheetContent } from "../ui/sheet";
 import { Button } from "../ui/button";
+import { usePathname } from "next/navigation";
+import shortLogo from "../../../public/images/protonix_it.png";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState("/");
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -17,24 +18,26 @@ export function Navigation() {
     { href: "/services", label: "Services" },
     { href: "/contact", label: "Contact" },
   ];
+  const pathname = usePathname();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-900/95 backdrop-blur-md border-b border-primary/10 shadow-2xl">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <div className="flex items-center gap-2 group cursor-pointer">
-            <Image src={logo} width={250} height={250} alt="Protonix It" />
-          </div>
+          <Link href={"/"}>
+            <div className="flex items-center gap-2 group cursor-pointer">
+              <Image src={logo} width={250} height={250} alt="Protonix It" />
+            </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => {
-              const isActive = activeLink === link.href;
+              const isActive = pathname === link.href;
               return (
                 <Link key={link.href} href={link.href}>
                   <button
-                    onClick={() => setActiveLink(link.href)}
                     className={`px-6 py-2 text-base font-medium transition-all duration-300 relative group rounded-lg cursor-pointer
                     ${
                       isActive
@@ -64,10 +67,12 @@ export function Navigation() {
           <div className="hidden md:flex items-center gap-4">
             <button className="relative group px-6 py-2.5 font-medium overflow-hidden rounded-lg transition-all duration-300 cursor-pointer">
               <div className="absolute inset-0 bg-primary opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-              <div className="relative text-white group-hover:brightness-110 transition-all duration-300 flex items-center gap-2 font-semibold">
-                Get Started
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-              </div>
+              <Link href={"/contact"}>
+                <div className="relative text-white group-hover:brightness-110 transition-all duration-300 flex items-center gap-2 font-semibold">
+                  Get Started
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                </div>
+              </Link>
             </button>
           </div>
 
@@ -94,7 +99,12 @@ export function Navigation() {
                   className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
                   onClick={() => setIsOpen(false)}
                 >
-                  ProtonixIt
+                  <Image
+                    src={shortLogo}
+                    alt="Protonix It"
+                    width={50}
+                    height={50}
+                  />
                 </Link>
                 <span className="text-white">
                   <X />
@@ -105,12 +115,11 @@ export function Navigation() {
               <div className="flex-1 overflow-y-auto">
                 <div className="flex flex-col gap-1 p-4">
                   {navLinks.map((link) => {
-                    const isActive = activeLink === link.href;
+                    const isActive = pathname === link.href;
                     return (
                       <Link key={link.href} href={link.href}>
                         <button
                           onClick={() => {
-                            setActiveLink(link.href);
                             setIsOpen(false);
                           }}
                           className={`px-4 py-3 text-left rounded-lg font-medium transition-all duration-300 w-full

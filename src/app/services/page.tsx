@@ -1,6 +1,13 @@
 import Link from "next/link";
 import { ArrowRight, Palette, Code, Smartphone, Film, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "ProtonixIt | Services",
+  description:
+    "Professional digital services including web development, app development, digital marketing, Video editing and UI/UX design in Bangladesh. best software company in bangladesh.",
+};
 
 const services = [
   {
@@ -274,8 +281,8 @@ export default function ServicesPage() {
             Ready to bring your vision to life?
           </h2>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Let&apos;s discuss your project and find the perfect solution for your
-            needs.
+            Let&apos;s discuss your project and find the perfect solution for
+            your needs.
           </p>
           <Button
             size="lg"
