@@ -99,16 +99,22 @@ export function Footer() {
               </h4>
               <ul className="space-y-3">
                 {[
-                  "Web Development",
-                  "App Development",
-                  "Graphics Design",
-                  "UI/UX Design",
-                  "Video Editing",
-                ].map((service) => (
-                  <li key={service}>
-                    <span className="text-sm text-gray-200 hover:text-primary transition-colors duration-300 cursor-pointer">
-                      {service}
-                    </span>
+                  { label: "Web Development", href: "/web-development" },
+                  { label: "App Development", href: "/app-development" },
+                  { label: "Graphics Design", href: "/graphics-design" },
+                  { label: "UI/UX Design", href: "/ui-ux-design" },
+                  { label: "Video Editing", href: "/video-editing" },
+                ].map((service, idx) => (
+                  <li key={idx}>
+                    <Link
+                      href={`/services${service.href}`}
+                      className="text-sm text-gray-200 hover:text-primary transition-colors duration-300 flex items-center gap-1 group"
+                    >
+                      <span className="opacity-0 group-hover:opacity-100 transition-opacity">
+                        <ArrowRight size={14} />
+                      </span>
+                      {service.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
