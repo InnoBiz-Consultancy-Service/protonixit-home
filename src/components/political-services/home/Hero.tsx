@@ -16,12 +16,12 @@ export default function Hero() {
           <div className="space-y-6 sm:space-y-8">
             <div className="inline-block">
               <span className="bg-accent/20 text-accent px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-semibold">
-                আপনার ডিজিটাল শক্তি আবিষ্কার করুন
+                We Build Digital Power for Political Leaders
               </span>
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-7xl font-bold leading-snug sm:leading-tight lg:leading-tight text-balance">
-              নেতৃত্বের নতুন যুগ শুরু করুন
+              নেতৃত্ব গড়ে তুলি প্রযুক্তির সাথে
             </h1>
 
             <p className="text-base sm:text-lg text-white/90 leading-relaxed sm:leading-relaxed max-w-md sm:max-w-lg">
@@ -33,7 +33,7 @@ export default function Hero() {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 pt-6 sm:pt-8 border-t border-white/20">
               <div>
                 <div className="text-3xl sm:text-4xl font-bold text-accent">
-                  ১০০%
+                  ৯৯.৯৯%
                 </div>
                 <p className="text-white/80 text-xs sm:text-sm mt-1 sm:mt-2">
                   সন্তুষ্ট ক্লায়েন্ট
