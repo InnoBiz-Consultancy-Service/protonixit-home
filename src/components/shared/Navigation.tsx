@@ -17,6 +17,7 @@ export function Navigation() {
     { href: "/about", label: "About" },
     { href: "/services", label: "Services" },
     { href: "/contact", label: "Contact" },
+    { href: "/political-services", label: "Political Services" },
   ];
   const pathname = usePathname();
 
