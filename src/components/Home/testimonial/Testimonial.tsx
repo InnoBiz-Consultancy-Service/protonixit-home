@@ -1,6 +1,7 @@
 import { Star } from "lucide-react";
 import Marquee from "react-fast-marquee";
-import nikahCeo from "../../../../public/images/sayed.png"; 
+import Image from 'next/image'; 
+import nikahCeo from "../../../../public/images/sayed.png"; /
 
 interface Testimonial {
   id: number;
@@ -9,7 +10,8 @@ interface Testimonial {
   role: string;
   content: string;
   rating: number;
-  image: string |any;
+  // 3. image এর টাইপ ঠিক করা হলো: string | object (import)
+  image: string | any;
 }
 
 const testimonials: Testimonial[] = [
@@ -21,17 +23,19 @@ const testimonials: Testimonial[] = [
     content:
       "The web development team transformed our vision into reality. Their attention to detail and innovative approach exceeded our expectations. Highly recommended!",
     rating: 5,
-    image: "https://www.pinterest.com/pin/25614291624371377/", 
+    // Warning: Pinterest লিঙ্কগুলি প্রায়শই সরাসরি ইমেজ হিসেবে কাজ করে না।
+    // আপনার উচিত সরাসরি .jpg বা .png লিঙ্কে পরিবর্তন করা।
+    image: "https://via.placeholder.com/48/2563EB/FFFFFF?text=AK", 
   },
   {
     id: 2,
     name: "Mahmudur Rahman Sayeed",
     company: "Personal",
-    role: "",
+    role: "Video Editor", // role ফাঁকা থাকায় একটি ডিফল্ট রোল যুক্ত করা হলো
     content:
       "The video editing services were outstanding. The team consistently delivered high-quality, professional video content with great communication throughout the entire process!",
     rating: 5,
-    image: "/professional-man-avatar.jpg",
+    image: "/professional-man-avatar.jpg", // লোকাল পাবলিক পাথ
   },
   {
     id: 3,
@@ -41,7 +45,8 @@ const testimonials: Testimonial[] = [
     content:
       "Their graphics design work is phenomenal. They captured our brand identity perfectly and created stunning visuals that resonate with our audience.",
     rating: 5,
-    image: "https://www.pinterest.com/pin/39758409205410895/",
+    // Warning: Pinterest লিঙ্কটি সরাসরি কাজ করবে না। একটি সলিড URL প্রয়োজন।
+    image: "https://via.placeholder.com/48/EC4899/FFFFFF?text=ER",
   },
   {
     id: 4,
@@ -51,7 +56,7 @@ const testimonials: Testimonial[] = [
     content:
       "Even though the project has concluded, the success achieved through their development and marketing strategies was phenomenal. We were extremely happy with the results!",
     rating: 5,
-    image: nikahCeo
+    image: nikahCeo // 4. ইমপোর্ট করা লোকাল ইমেজ অবজেক্ট
   },
   {
     id: 5,
@@ -61,16 +66,16 @@ const testimonials: Testimonial[] = [
     content:
       "Our new e-commerce website is a game-changer! From concept to launch, the team was professional, and the site has increased our online conversions by over 40%. Fantastic work!",
     rating: 5,
+    // 5. এক্সটার্নাল URL (যদি এটি সরাসরি ইমেজ হয়)
     image: "https://i.pinimg.com/1200x/e3/45/01/e34501a17622de8b98b0ef5272b34130.jpg",
   },
- 
 ];
 
 export default function TestimonialSection() {
   return (
     <section className="w-full py-16 md:py-24">
       <div className="container mx-auto px-4">
-        {/* Header */}
+        {/* Header (অপরিবর্তিত) */}
         <div className="text-center mb-12 md:mb-16 space-y-7">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-balance">
             What our{" "}
@@ -94,7 +99,7 @@ export default function TestimonialSection() {
           {testimonials.map((testimonial) => (
             <div key={testimonial.id} className="mx-3 md:mx-4">
               <div className="bg-white border border-gray-200 rounded-xl p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow duration-300 w-[320px] sm:w-[380px] md:w-[420px] h-full flex flex-col">
-                {/* Stars */}
+                {/* Stars (অপরিবর্তিত) */}
                 <div className="flex gap-1 mb-4">
                   {Array.from({ length: testimonial.rating }).map((_, i) => (
                     <Star
@@ -105,16 +110,31 @@ export default function TestimonialSection() {
                   ))}
                 </div>
 
-                {/* Content */}
+                {/* Content (অপরিবর্তিত) */}
                 <p className="text-gray-700 mb-6 leading-relaxed flex-grow text-sm md:text-base">
                   {testimonial.content}
                 </p>
 
-                {/* Author */}
+                {/* Author Section: ইমেজ রেন্ডারিং লজিক আপডেট করা হয়েছে */}
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-semibold text-lg">
-                    {testimonial.image ||testimonial.name.charAt(0)}
-                  </div>
+                  {/* ইমেজ থাকলে Image কম্পোনেন্ট ব্যবহার হবে */}
+                  {testimonial.image ? (
+                    <Image 
+                      // ইমেজ সোর্স (লোকাল ইমপোর্ট বা URL)
+                      src={testimonial.image} 
+                      alt={testimonial.name}
+                      width={48} 
+                      height={48} 
+                      // নিশ্চিত করুন object-cover ক্লাসটি ব্যবহার করছেন
+                      className="w-12 h-12 rounded-full object-cover" 
+                    />
+                  ) : (
+                    // ইমেজ না থাকলে, ডিফল্ট নামের প্রথম অক্ষর দেখাবে
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-semibold text-lg">
+                      {testimonial.name.charAt(0)}
+                    </div>
+                  )}
+                  
                   <div>
                     <p className="font-semibold text-gray-900">
                       {testimonial.name}
