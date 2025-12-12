@@ -1,5 +1,6 @@
 import { Star } from "lucide-react";
 import Marquee from "react-fast-marquee";
+import nikahCeo from "../../../../public/images/sayed.jpg"; 
 
 interface Testimonial {
   id: number;
@@ -8,27 +9,27 @@ interface Testimonial {
   role: string;
   content: string;
   rating: number;
-  image: string;
+  image: string |any;
 }
 
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: "Sarah Johnson",
-    company: "TechStart Inc",
+    name: "Adil Khan",
+    company: "Tenrus",
     role: "CEO",
     content:
       "The web development team transformed our vision into reality. Their attention to detail and innovative approach exceeded our expectations. Highly recommended!",
     rating: 5,
-    image: "/professional-woman-avatar.jpg",
+    image: "/professional-woman-avatar-1.jpg", 
   },
   {
     id: 2,
-    name: "Michael Chen",
-    company: "Digital Solutions",
-    role: "Product Manager",
+    name: "Mahmudur Rahman Sayeed",
+    company: "Personal",
+    role: "",
     content:
-      "Outstanding app development services. The team delivered a seamless mobile experience that our users absolutely love. Great communication throughout!",
+      "The video editing services were outstanding. The team consistently delivered high-quality, professional video content with great communication throughout the entire process!",
     rating: 5,
     image: "/professional-man-avatar.jpg",
   },
@@ -44,34 +45,25 @@ const testimonials: Testimonial[] = [
   },
   {
     id: 4,
-    name: "David Thompson",
-    company: "Marketing Pro",
-    role: "Marketing Lead",
+    name: "Mohammad Sayeed",
+    company: "NikahLife",
+    role: "Former CEO", 
     content:
-      "The video editing team produced incredible content for our campaigns. Professional quality, fast turnaround, and excellent collaboration. Worth every penny!",
+      "Even though the project has concluded, the success achieved through their development and marketing strategies was phenomenal. We were extremely happy with the results!",
     rating: 5,
-    image: "/professional-man-avatar-2.jpg",
+    image: nikahCeo
   },
   {
     id: 5,
-    name: "Lisa Anderson",
-    company: "E-Commerce Plus",
+    name: "Khaled Ahmed",
+    company: "Onemartt",
     role: "Founder",
     content:
-      "From concept to launch, the entire team was professional and dedicated. Our new website has increased conversions by 40%. Fantastic work!",
+      "Our new e-commerce website is a game-changer! From concept to launch, the team was professional, and the site has increased our online conversions by over 40%. Fantastic work!",
     rating: 5,
     image: "/professional-woman-avatar-3.jpg",
   },
-  {
-    id: 6,
-    name: "James Wilson",
-    company: "Global Ventures",
-    role: "CTO",
-    content:
-      "Exceptional quality across all services. The team's expertise in both design and development is rare. They're now our go-to partner for all projects.",
-    rating: 5,
-    image: "/professional-man-avatar-3.jpg",
-  },
+ 
 ];
 
 export default function TestimonialSection() {
