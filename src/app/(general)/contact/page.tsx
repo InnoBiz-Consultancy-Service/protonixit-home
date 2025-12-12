@@ -4,6 +4,7 @@ import type React from "react";
 import { useState } from "react";
 import { Mail, Phone, MapPin, Send, Clock, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -88,7 +89,7 @@ export default function ContactPage() {
                 href="mailto:service@protonixit.com"
                 className="text-primary font-semibold hover:underline"
               >
-                service@protonixit.com
+                protonixit@gmail.com
               </a>
             </div>
 
@@ -279,7 +280,7 @@ export default function ContactPage() {
 
               <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-lg flex-1 min-h-[500px] md:min-h-[600px]">
                 <iframe
-                  src="https://calendly.com/salimintelligency/30min?hide_event_type_details=1&hide_landing_page_details=1&background_color=ffffff&text_color=1a2a2c"
+                  src="https://calendly.com/mohammad-salim-tech/30min?hide_event_type_details=1&hide_landing_page_details=1&background_color=ffffff&text_color=1a2a2c"
                   width="100%"
                   height="100%"
                   frameBorder="0"
@@ -319,13 +320,15 @@ export default function ContactPage() {
             here to help you bring your vision to life.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/contact">
             <Button
               size="lg"
               className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-primary/50 transition-all duration-300 hover:scale-105"
             >
               <MessageSquare className="mr-2" size={20} />
               Start a Conversation
-            </Button>
+            </Button></Link>
+           <Link href="/services">
             <Button
               size="lg"
               variant="outline"
@@ -333,7 +336,7 @@ export default function ContactPage() {
             >
               <Clock className="mr-2" size={20} />
               View Our Services
-            </Button>
+            </Button></Link>
           </div>
         </div>
       </section>

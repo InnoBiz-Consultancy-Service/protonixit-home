@@ -10,7 +10,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import Image from "next/image";
-import logo from "../../../public/images/protonixit.png";
+const logo = "/images/protonixit.png";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -149,7 +149,7 @@ export function Footer() {
                       size={18}
                       className="text-primary flex-shrink-0 group-hover:scale-110 transition-transform"
                     />
-                    <span>service@protonixit.com</span>
+                    <span>protonixit@gmail.com</span>
                   </a>
                 </li>
                 <li>
