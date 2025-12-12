@@ -1,7 +1,7 @@
 import { Star } from "lucide-react";
 import Marquee from "react-fast-marquee";
 import Image from 'next/image'; 
-import nikahCeo from "../../../../public/images/sayed.png"; /
+import nikahCeo from "../../../../public/images/sayed.png"; 
 
 interface Testimonial {
   id: number;
@@ -10,11 +10,11 @@ interface Testimonial {
   role: string;
   content: string;
   rating: number;
-  // 3. image এর টাইপ ঠিক করা হলো: string | object (import)
   image: string | any;
 }
 
 const testimonials: Testimonial[] = [
+  // ... (Testimonials Array অপরিবর্তিত) ...
   {
     id: 1,
     name: "Adil Khan",
@@ -30,7 +30,7 @@ const testimonials: Testimonial[] = [
     id: 2,
     name: "Mahmudur Rahman Sayeed",
     company: "Personal",
-    role: "Video Editor", // role ফাঁকা থাকায় একটি ডিফল্ট রোল যুক্ত করা হলো
+    role: "Video Editor", 
     content:
       "The video editing services were outstanding. The team consistently delivered high-quality, professional video content with great communication throughout the entire process!",
     rating: 5,
@@ -44,7 +44,6 @@ const testimonials: Testimonial[] = [
     content:
       "Their graphics design work is phenomenal. They captured our brand identity perfectly and created stunning visuals that resonate with our audience.",
     rating: 5,
-    // Warning: Pinterest লিঙ্কটি সরাসরি কাজ করবে না। একটি সলিড URL প্রয়োজন।
     image: "https://via.placeholder.com/48/EC4899/FFFFFF?text=ER",
   },
   {
@@ -109,78 +108,40 @@ export default function TestimonialSection() {
                   ))}
                 </div>
 
-               
+                {/* Content (অপরিবর্তিত) */}
                 <p className="text-gray-700 mb-6 leading-relaxed flex-grow text-sm md:text-base">
                   {testimonial.content}
                 </p>
 
-             // **Author Section: ইমেজ রেন্ডারিং লজিক আপডেট করা হয়েছে**
-<div className="flex items-center gap-4">
-    {testimonial.image ? (
-        // এখানে `fill` এর বদলে নির্দিষ্ট width এবং height ব্যবহার করা হয়েছে
-        <div className="w-12 h-12"> 
-            <Image 
-                src={testimonial.image} 
-                alt={testimonial.name}
-                width={48} // w-12 এর সমতুল্য (48px)
-                height={48} // h-12 এর সমতুল্য (48px)
-                className="rounded-full object-cover" 
-            />
-        </div>
-    ) : (
-        
-        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-semibold text-lg">
-            {testimonial.name.charAt(0)}
-        </div>
-    )}
-    
-    <div>
-        <p className="font-semibold text-gray-900">
-            {testimonial.name}
-        </p>
-        <p className="text-sm text-gray-600">
-            {testimonial.role} at {testimonial.company}
-        </p>
-    </div>
-</div>  
-
-<div className="flex items-center gap-4">
-    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-semibold text-lg">
-        {testimonial.image || testimonial.name.charAt(0)} 
-    </div>
-    // ...
-</div>
-*/
-
-// **নতুন এবং সঠিক কোডটি ব্যবহার করুন:**
-<div className="flex items-center gap-4">
-    {testimonial.image ? (
-        <div className="relative w-12 h-12">
-            <Image 
-                src={testimonial.image} 
-                alt={testimonial.name}
-                // এইখানে object-cover ব্যবহার করলে আর width/height আলাদা করে দিতে হবে না
-                className="rounded-full object-cover" 
-                fill 
-                sizes="(max-width: 768px) 100vw, 33vw"
-            />
-        </div>
-    ) : (
-        // যদি ইমেজ না থাকে, তবে আগের মতো নামের প্রথম অক্ষর দেখাবে
-        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-semibold text-lg">
-            {testimonial.name.charAt(0)}
-        </div>
-    )}
-    
-    <div>
-        <p className="font-semibold text-gray-900">
-            {testimonial.name}
-        </p>
-        <p className="text-sm text-gray-600">
-            {testimonial.role} at {testimonial.company}
-        </p>
-    </div>
-</div>
+                {/* --- একক Author সেকশন: ফিক্সড width/height লজিক ব্যবহার করা হলো --- */}
+                <div className="flex items-center gap-4">
+                    {testimonial.image ? (
+                        <div className="w-12 h-12"> 
+                            <Image 
+                                src={testimonial.image} 
+                                alt={testimonial.name}
+                                width={48} 
+                                height={48} 
+                                className="rounded-full object-cover" 
+                            />
+                        </div>
+                    ) : (
+                        // যদি ইমেজ না থাকে, তবে আগের মতো নামের প্রথম অক্ষর দেখাবে
+                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-semibold text-lg">
+                            {testimonial.name.charAt(0)}
+                        </div>
+                    )}
+                    
+                    <div>
+                        <p className="font-semibold text-gray-900">
+                            {testimonial.name}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                            {testimonial.role} at {testimonial.company}
+                        </p>
+                    </div>
+                </div>
+                {/* --- একক Author সেকশন শেষ --- */}
               </div>
             </div>
           ))}
