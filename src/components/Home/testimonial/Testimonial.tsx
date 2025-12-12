@@ -23,9 +23,8 @@ const testimonials: Testimonial[] = [
     content:
       "The web development team transformed our vision into reality. Their attention to detail and innovative approach exceeded our expectations. Highly recommended!",
     rating: 5,
-    // Warning: Pinterest লিঙ্কগুলি প্রায়শই সরাসরি ইমেজ হিসেবে কাজ করে না।
-    // আপনার উচিত সরাসরি .jpg বা .png লিঙ্কে পরিবর্তন করা।
-    image: "https://via.placeholder.com/48/2563EB/FFFFFF?text=AK", 
+   
+    image: "https://i.pinimg.com/1200x/e3/45/01/e34501a17622de8b98b0ef5272b34130.jpg", 
   },
   {
     id: 2,
@@ -35,7 +34,7 @@ const testimonials: Testimonial[] = [
     content:
       "The video editing services were outstanding. The team consistently delivered high-quality, professional video content with great communication throughout the entire process!",
     rating: 5,
-    image: "/professional-man-avatar.jpg", // লোকাল পাবলিক পাথ
+    image: "/professional-man-avatar.jpg", 
   },
   {
     id: 3,
@@ -56,7 +55,7 @@ const testimonials: Testimonial[] = [
     content:
       "Even though the project has concluded, the success achieved through their development and marketing strategies was phenomenal. We were extremely happy with the results!",
     rating: 5,
-    image: nikahCeo // 4. ইমপোর্ট করা লোকাল ইমেজ অবজেক্ট
+    image: nikahCeo 
   },
   {
     id: 5,
@@ -66,8 +65,8 @@ const testimonials: Testimonial[] = [
     content:
       "Our new e-commerce website is a game-changer! From concept to launch, the team was professional, and the site has increased our online conversions by over 40%. Fantastic work!",
     rating: 5,
-    // 5. এক্সটার্নাল URL (যদি এটি সরাসরি ইমেজ হয়)
-    image: "https://i.pinimg.com/1200x/e3/45/01/e34501a17622de8b98b0ef5272b34130.jpg",
+    
+    image: "https://i.pinimg.com/1200x/f0/82/ba/f082ba675c0dd61f4d3d7a491f4e27b4.jpg",
   },
 ];
 
@@ -116,34 +115,45 @@ export default function TestimonialSection() {
                 </p>
 
                 {/* Author Section: ইমেজ রেন্ডারিং লজিক আপডেট করা হয়েছে */}
-                <div className="flex items-center gap-4">
-                  {/* ইমেজ থাকলে Image কম্পোনেন্ট ব্যবহার হবে */}
-                  {testimonial.image ? (
-                    <Image 
-                      // ইমেজ সোর্স (লোকাল ইমপোর্ট বা URL)
-                      src={testimonial.image} 
-                      alt={testimonial.name}
-                      width={48} 
-                      height={48} 
-                      // নিশ্চিত করুন object-cover ক্লাসটি ব্যবহার করছেন
-                      className="w-12 h-12 rounded-full object-cover" 
-                    />
-                  ) : (
-                    // ইমেজ না থাকলে, ডিফল্ট নামের প্রথম অক্ষর দেখাবে
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-semibold text-lg">
-                      {testimonial.name.charAt(0)}
-                    </div>
-                  )}
-                  
-                  <div>
-                    <p className="font-semibold text-gray-900">
-                      {testimonial.name}
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      {testimonial.role} at {testimonial.company}
-                    </p>
-                  </div>
-                </div>
+            // **পুরাতন ভুল কোডটি সরিয়ে দিন:**
+/*
+<div className="flex items-center gap-4">
+    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-semibold text-lg">
+        {testimonial.image || testimonial.name.charAt(0)} 
+    </div>
+    // ...
+</div>
+*/
+
+// **নতুন এবং সঠিক কোডটি ব্যবহার করুন:**
+<div className="flex items-center gap-4">
+    {testimonial.image ? (
+        <div className="relative w-12 h-12">
+            <Image 
+                src={testimonial.image} 
+                alt={testimonial.name}
+                // এইখানে object-cover ব্যবহার করলে আর width/height আলাদা করে দিতে হবে না
+                className="rounded-full object-cover" 
+                fill 
+                sizes="(max-width: 768px) 100vw, 33vw"
+            />
+        </div>
+    ) : (
+        // যদি ইমেজ না থাকে, তবে আগের মতো নামের প্রথম অক্ষর দেখাবে
+        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-semibold text-lg">
+            {testimonial.name.charAt(0)}
+        </div>
+    )}
+    
+    <div>
+        <p className="font-semibold text-gray-900">
+            {testimonial.name}
+        </p>
+        <p className="text-sm text-gray-600">
+            {testimonial.role} at {testimonial.company}
+        </p>
+    </div>
+</div>
               </div>
             </div>
           ))}
