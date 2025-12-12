@@ -1,6 +1,6 @@
 import { Star } from "lucide-react";
 import Marquee from "react-fast-marquee";
-import nikahCeo from "../../../../public/images/sayed.jpg"; 
+import nikahCeo from "../../../../public/images/sayed.png"; 
 
 interface Testimonial {
   id: number;
@@ -21,7 +21,7 @@ const testimonials: Testimonial[] = [
     content:
       "The web development team transformed our vision into reality. Their attention to detail and innovative approach exceeded our expectations. Highly recommended!",
     rating: 5,
-    image: "/professional-woman-avatar-1.jpg", 
+    image: "https://www.pinterest.com/pin/25614291624371377/", 
   },
   {
     id: 2,
@@ -41,7 +41,7 @@ const testimonials: Testimonial[] = [
     content:
       "Their graphics design work is phenomenal. They captured our brand identity perfectly and created stunning visuals that resonate with our audience.",
     rating: 5,
-    image: "/professional-woman-avatar-2.jpg",
+    image: "https://www.pinterest.com/pin/39758409205410895/",
   },
   {
     id: 4,
@@ -61,7 +61,7 @@ const testimonials: Testimonial[] = [
     content:
       "Our new e-commerce website is a game-changer! From concept to launch, the team was professional, and the site has increased our online conversions by over 40%. Fantastic work!",
     rating: 5,
-    image: "/professional-woman-avatar-3.jpg",
+    image: "https://i.pinimg.com/1200x/e3/45/01/e34501a17622de8b98b0ef5272b34130.jpg",
   },
  
 ];
@@ -113,7 +113,7 @@ export default function TestimonialSection() {
                 {/* Author */}
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-semibold text-lg">
-                    {testimonial.name.charAt(0)}
+                    {testimonial.image ||testimonial.name.charAt(0)}
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">
