@@ -109,14 +109,41 @@ export default function TestimonialSection() {
                   ))}
                 </div>
 
-                {/* Content (অপরিবর্তিত) */}
+               
                 <p className="text-gray-700 mb-6 leading-relaxed flex-grow text-sm md:text-base">
                   {testimonial.content}
                 </p>
 
-                {/* Author Section: ইমেজ রেন্ডারিং লজিক আপডেট করা হয়েছে */}
-            // **পুরাতন ভুল কোডটি সরিয়ে দিন:**
-/*
+             // **Author Section: ইমেজ রেন্ডারিং লজিক আপডেট করা হয়েছে**
+<div className="flex items-center gap-4">
+    {testimonial.image ? (
+        // এখানে `fill` এর বদলে নির্দিষ্ট width এবং height ব্যবহার করা হয়েছে
+        <div className="w-12 h-12"> 
+            <Image 
+                src={testimonial.image} 
+                alt={testimonial.name}
+                width={48} // w-12 এর সমতুল্য (48px)
+                height={48} // h-12 এর সমতুল্য (48px)
+                className="rounded-full object-cover" 
+            />
+        </div>
+    ) : (
+        
+        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-semibold text-lg">
+            {testimonial.name.charAt(0)}
+        </div>
+    )}
+    
+    <div>
+        <p className="font-semibold text-gray-900">
+            {testimonial.name}
+        </p>
+        <p className="text-sm text-gray-600">
+            {testimonial.role} at {testimonial.company}
+        </p>
+    </div>
+</div>  
+
 <div className="flex items-center gap-4">
     <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-semibold text-lg">
         {testimonial.image || testimonial.name.charAt(0)} 
