@@ -14,7 +14,7 @@ interface Testimonial {
 }
 
 const testimonials: Testimonial[] = [
-  // ... (Testimonials Array অপরিবর্তিত) ...
+  // ... (Testimonials Array 
   {
     id: 1,
     name: "Adil Khan",
@@ -141,7 +141,7 @@ export default function TestimonialSection() {
                         </p>
                     </div>
                 </div>
-                {/* --- একক Author সেকশন শেষ --- */}
+               
               </div>
             </div>
           ))}

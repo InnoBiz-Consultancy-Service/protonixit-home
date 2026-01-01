@@ -41,23 +41,31 @@ export function Footer() {
               </p>
             </div>
 
-            <div className="flex gap-3 pt-2">
-              {[
-                { Icon: Facebook, label: "Facebook", href: "#" },
-                { Icon: Twitter, label: "Twitter", href: "#" },
-                { Icon: Linkedin, label: "LinkedIn", href: "#" },
-                { Icon: Instagram, label: "Instagram", href: "#" },
-              ].map(({ Icon, label, href }) => (
-                <Link
-                  key={label}
-                  href={href}
-                  className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-primary/20"
-                  aria-label={label}
-                >
-                  <Icon size={18} />
-                </Link>
-              ))}
-            </div>
+           <div className="flex gap-3 pt-2">
+  {[
+    { 
+      Icon: Facebook, 
+      label: "Facebook", 
+      href: "https://www.facebook.com/profile.php?id=61582390889742" 
+    },
+    { 
+      Icon: Linkedin, 
+      label: "LinkedIn", 
+      href: "https://www.linkedin.com/company/109589980/" 
+    },
+  ].map(({ Icon, label, href }) => (
+    <Link
+      key={label}
+      href={href}
+      target="_blank" // Notun tab-e open hobar jonno
+      rel="noopener noreferrer" // Security-r jonno
+      className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-primary/20"
+      aria-label={label}
+    >
+      <Icon size={18} />
+    </Link>
+  ))}
+</div>
           </div>
 
           {/* Quick Links Section */}

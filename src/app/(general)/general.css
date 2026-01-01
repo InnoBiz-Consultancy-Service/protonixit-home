@@ -12,7 +12,7 @@
   --popover-foreground: oklch(0.145 0 0);
 
   /* ✅ Primary color fixed (Blue-based) */
---primary: oklch(32.524% 0.12199 260.64); /* Vibrant blue */
+--primary: oklch(46.868% 0.1541 260.833); /* Vibrant blue */
 --primary-foreground: oklch(0.985 0 0); /* White */
 
   --secondary: oklch(0.97 0 0);
@@ -39,7 +39,7 @@
   --sidebar-foreground: oklch(0.145 0 0);
 
   /* ✅ Sidebar primary also matched with brand blue */
-  --sidebar-primary: oklch(34.332% 0.117 259.927);
+  --sidebar-primary: oklch(47.912% 0.14246 259.606);
   --sidebar-primary-foreground: oklch(0.985 0 0);
 
   --sidebar-accent: oklch(0.97 0 0);
