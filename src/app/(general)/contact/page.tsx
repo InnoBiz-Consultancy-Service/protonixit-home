@@ -89,7 +89,7 @@ export default function ContactPage() {
                 href="mailto:service@protonixit.com"
                 className="text-primary font-semibold hover:underline"
               >
-                protonixit@gmail.com
+                info@protonixit.com
               </a>
             </div>
 
