@@ -22,7 +22,8 @@ export function Navigation() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-900/95 backdrop-blur-md border-b border-primary/10 shadow-2xl">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-md border-b border-white/5 shadow-2xl">
+  
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
