@@ -75,12 +75,11 @@ const categories = [
   { name: "Video Editing", icon: Film },
 ];
 
+// ... (আপনার imports এবং interface একই থাকবে)
+
 export default function PortfolioSection() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const filteredItems =
@@ -88,18 +87,17 @@ export default function PortfolioSection() {
       ? portfolioItems
       : portfolioItems.filter((item) => item.category === selectedCategory);
 
-  // Calculate items to show based on screen size
-  const getItemsPerView = () => {
-    if (typeof window === "undefined") return 3;
-    if (window.innerWidth < 768) return 1;
-    if (window.innerWidth < 1024) return 2;
-    return 3;
-  };
-
-  const [itemsPerView, setItemsPerView] = useState(getItemsPerView());
+  // Responsive Items logic
+  const [itemsPerView, setItemsPerView] = useState(1);
 
   useEffect(() => {
-    const handleResize = () => setItemsPerView(getItemsPerView());
+    const handleResize = () => {
+      if (window.innerWidth < 640) setItemsPerView(1);      // Mobile
+      else if (window.innerWidth < 1024) setItemsPerView(2); // Tablet
+      else setItemsPerView(3);                               // Desktop
+    };
+    
+    handleResize(); // Initial call
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -114,219 +112,112 @@ export default function PortfolioSection() {
     setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
   };
 
-  // Touch/Mouse drag handlers
-  const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
-    setIsDragging(true);
-    const pageX = "touches" in e ? e.touches[0].pageX : e.pageX;
-    setStartX(pageX);
-    if (carouselRef.current) {
-      setScrollLeft(carouselRef.current.scrollLeft);
-    }
-  };
-
-  const handleDragMove = (e: React.MouseEvent | React.TouchEvent) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const pageX = "touches" in e ? e.touches[0].pageX : e.pageX;
-    const walk = (pageX - startX) * 2;
-    if (carouselRef.current) {
-      carouselRef.current.scrollLeft = scrollLeft - walk;
-    }
-  };
-
-  const handleDragEnd = () => {
-    if (!isDragging) return;
-    setIsDragging(false);
-
-    // Snap to nearest item
-    if (carouselRef.current) {
-      const scrolled = scrollLeft - carouselRef.current.scrollLeft;
-      const itemWidth = carouselRef.current.scrollWidth / filteredItems.length;
-      const threshold = itemWidth * 0.3;
-
-      if (Math.abs(scrolled) > threshold) {
-        if (scrolled > 0 && currentIndex < maxIndex) {
-          setCurrentIndex(currentIndex + 1);
-        } else if (scrolled < 0 && currentIndex > 0) {
-          setCurrentIndex(currentIndex - 1);
-        }
-      }
-    }
-  };
-
-  // Reset index when category changes
+  // Category change হলে index reset করা
   useEffect(() => {
     setCurrentIndex(0);
   }, [selectedCategory]);
 
   return (
-    <section className="w-full py-16 md:py-24 px-4 bg-slate-50">
-      <div className="container mx-auto">
-        {/* Header */}
-        <div className="mb-12 md:mb-16 text-center space-y-6">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-            Our{" "}
-            <span className="bg-gradient-to-r from-primary via-primary to-primary/70 bg-clip-text text-transparent">
-              Portfolio
-            </span>
+    <section className="w-full py-12 md:py-24 bg-slate-50 overflow-hidden"> {/* overflow-hidden added to section */}
+      <div className="container mx-auto px-4 md:px-6">
+        
+        {/* Header - Mobile friendly spacing */}
+        <div className="mb-10 text-center space-y-4">
+          <h2 className="text-3xl md:text-5xl font-bold">
+            Our <span className="text-primary">Portfolio</span>
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light">
-            Explore our latest projects showcasing our expertise across web
-            development, app development, graphics design, and video editing.
+          <p className="text-sm md:text-lg text-gray-600 max-w-2xl mx-auto px-2">
+            Explore our latest projects showcasing our expertise across web development and design.
           </p>
         </div>
 
-        {/* Category Filter */}
-        <div className="mb-8 md:mb-12 flex flex-wrap gap-3 justify-center">
+        {/* Category Filter - Scrollable on mobile if items are many */}
+        <div className="mb-8 flex flex-wrap gap-2 justify-center">
           {categories.map((category) => {
             const Icon = category.icon;
             return (
               <button
                 key={category.name}
                 onClick={() => setSelectedCategory(category.name)}
-                className={`px-4 md:px-6 py-2 md:py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-2 cursor-pointer ${
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   selectedCategory === category.name
-                    ? "bg-primary text-white shadow-lg"
-                    : "bg-white text-gray-700 border border-gray-200 hover:border-blue-600 hover:bg-blue-50"
+                    ? "bg-primary text-white"
+                    : "bg-white text-gray-700 border border-gray-200"
                 }`}
               >
-                {Icon && <Icon className="w-4 h-4" />}
                 {category.name}
               </button>
             );
           })}
         </div>
 
-        {/* Navigation Arrows */}
-        <div className="flex justify-end gap-2 mb-6">
+        {/* Navigation - Hidden on very small screens or smaller size */}
+        <div className="flex justify-end gap-2 mb-4">
           <button
             onClick={handlePrevious}
             disabled={currentIndex === 0}
-            className={`p-3 rounded-full border transition-all duration-300 ${
-              currentIndex === 0
-                ? "bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed"
-                : "bg-white text-gray-700 border-gray-300 hover:bg-primary hover:text-white hover:border-primary cursor-pointer"
-            }`}
+            className="p-2 rounded-full border bg-white disabled:opacity-50"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <button
             onClick={handleNext}
             disabled={currentIndex >= maxIndex}
-            className={`p-3 rounded-full border transition-all duration-300 ${
-              currentIndex >= maxIndex
-                ? "bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed"
-                : "bg-white text-gray-700 border-gray-300 hover:bg-primary hover:text-white hover:border-primary cursor-pointer"
-            }`}
+            className="p-2 rounded-full border bg-white disabled:opacity-50"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Portfolio Carousel */}
+        {/* Carousel Container */}
         <div className="relative overflow-hidden">
           <div
-            ref={carouselRef}
-            className="overflow-hidden cursor-grab active:cursor-grabbing"
-            onMouseDown={handleDragStart}
-            onMouseMove={handleDragMove}
-            onMouseUp={handleDragEnd}
-            onMouseLeave={handleDragEnd}
-            onTouchStart={handleDragStart}
-            onTouchMove={handleDragMove}
-            onTouchEnd={handleDragEnd}
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{
+              transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)`,
+            }}
           >
-            <div
-              className="flex transition-transform duration-500 ease-out"
-              style={{
-                transform: `translateX(-${
-                  currentIndex * (100 / itemsPerView)
-                }%)`,
-              }}
-            >
-              {filteredItems.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex-shrink-0 px-3"
-                  style={{ width: `${100 / itemsPerView}%` }}
-                >
-                  <Card className="overflow-hidden h-full flex flex-col border-0 transition-all duration-300 group">
-                    {/* Image Container */}
-                    <div className="relative overflow-hidden bg-gray-100 h-48 md:h-56">
-                      <Image
-                        src={item.image || "/placeholder.svg"}
-                        alt={item.title}
-                        width={500}
-                        height={500}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        draggable="false"
-                      />
-                      <div className="absolute inset-0 bg-blue-600/0 group-hover:bg-primary/20 transition-colors duration-300" />
+            {filteredItems.map((item) => (
+              <div
+                key={item.id}
+                className="flex-shrink-0 px-2 w-full" 
+                style={{ width: `${100 / itemsPerView}%` }}
+              >
+                <Card className="h-full flex flex-col border-0 shadow-sm hover:shadow-md transition-shadow">
+                  {/* Image */}
+                  <div className="relative aspect-video overflow-hidden rounded-t-xl">
+                    <Image
+                      src={item.image || "/placeholder.svg"}
+                      alt={item.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-5 flex flex-col flex-grow">
+                    <Badge variant="secondary" className="w-fit mb-2">{item.category}</Badge>
+                    <h3 className="text-lg font-bold mb-2 line-clamp-1">{item.title}</h3>
+                    <p className="text-sm text-gray-600 mb-4 line-clamp-2">{item.description}</p>
+                    
+                    <div className="mt-auto">
+                        <Link
+                            target="_blank"
+                            href={item.link || "#"}
+                            className="text-primary text-sm font-semibold flex items-center gap-1"
+                        >
+                            View Project <ArrowRight className="w-4 h-4" />
+                        </Link>
                     </div>
-
-                    {/* Content */}
-                    <div className="p-5 md:p-6 flex flex-col flex-grow">
-                      <div className="mb-3">
-                        <Badge className="bg-primary/10 text-primary hover:bg-primary/20 mb-2">
-                          {item.category}
-                        </Badge>
-                      </div>
-
-                      <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 line-clamp-2">
-                        {item.title}
-                      </h3>
-
-                      <p className="text-sm md:text-base text-gray-600 mb-4 flex-grow line-clamp-2">
-                        {item.description}
-                      </p>
-
-                      {/* Tags */}
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {item.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-md"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* View Project Link */}
-                      <Link
-                        target="_blank"
-                        href={item.link || "https://protonixit.com"}
-                      >
-                        <div className="flex items-center gap-2 text-primary font-medium text-sm md:text-base group/link">
-                          <span>View Project</span>
-                          <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1" />
-                        </div>
-                      </Link>
-                    </div>
-                  </Card>
-                </div>
-              ))}
-            </div>
+                  </div>
+                </Card>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* View All Button */}
-        {/* <div className="text-center mt-12">
-          <Link href={"/portfolio"}>
-            <button className="px-8 py-4 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center gap-2 group cursor-pointer">
-              View All Projects
-              <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-            </button>
-          </Link>
-        </div> */}
-
-        {/* Empty State */}
         {filteredItems.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-600 text-lg">
-              No projects found in this category. Check back soon!
-            </p>
-          </div>
+          <p className="text-center text-gray-500 mt-10">No projects found.</p>
         )}
       </div>
     </section>
