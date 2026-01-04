@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -75,33 +75,27 @@ const categories = [
   { name: "Video Editing", icon: Film },
 ];
 
-// ... (আপনার imports এবং interface একই থাকবে)
-
 export default function PortfolioSection() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [currentIndex, setCurrentIndex] = useState(0);
-  const carouselRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   const filteredItems =
     selectedCategory === "All"
       ? portfolioItems
       : portfolioItems.filter((item) => item.category === selectedCategory);
 
-  // Responsive Items logic
-  const [itemsPerView, setItemsPerView] = useState(1);
-
+  // Screen resize logic to toggle between list and carousel
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 640) setItemsPerView(1);      // Mobile
-      else if (window.innerWidth < 1024) setItemsPerView(2); // Tablet
-      else setItemsPerView(3);                               // Desktop
+      setIsMobile(window.innerWidth < 768); // 768px (md) এর নিচে হলে মোবাইল মোড
     };
-    
-    handleResize(); // Initial call
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const itemsPerView = 3; 
   const maxIndex = Math.max(0, filteredItems.length - itemsPerView);
 
   const handlePrevious = () => {
@@ -112,102 +106,125 @@ export default function PortfolioSection() {
     setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
   };
 
-  // Category change হলে index reset করা
+  // Reset index when category changes
   useEffect(() => {
     setCurrentIndex(0);
   }, [selectedCategory]);
 
   return (
-    <section className="w-full py-12 md:py-24 bg-slate-50 overflow-hidden"> {/* overflow-hidden added to section */}
+    <section className="w-full py-12 md:py-24 bg-slate-50 overflow-hidden">
       <div className="container mx-auto px-4 md:px-6">
         
-        {/* Header - Mobile friendly spacing */}
+        {/* Header */}
         <div className="mb-10 text-center space-y-4">
           <h2 className="text-3xl md:text-5xl font-bold">
             Our <span className="text-primary">Portfolio</span>
           </h2>
-          <p className="text-sm md:text-lg text-gray-600 max-w-2xl mx-auto px-2">
+          <p className="text-sm md:text-lg text-gray-600 max-w-2xl mx-auto">
             Explore our latest projects showcasing our expertise across web development and design.
           </p>
         </div>
 
-        {/* Category Filter - Scrollable on mobile if items are many */}
+        {/* Category Filter */}
         <div className="mb-8 flex flex-wrap gap-2 justify-center">
-          {categories.map((category) => {
-            const Icon = category.icon;
-            return (
-              <button
-                key={category.name}
-                onClick={() => setSelectedCategory(category.name)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  selectedCategory === category.name
-                    ? "bg-primary text-white"
-                    : "bg-white text-gray-700 border border-gray-200"
-                }`}
-              >
-                {category.name}
-              </button>
-            );
-          })}
+          {categories.map((category) => (
+            <button
+              key={category.name}
+              onClick={() => setSelectedCategory(category.name)}
+              className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-all cursor-pointer ${
+                selectedCategory === category.name
+                  ? "bg-primary text-white shadow-md"
+                  : "bg-white text-gray-700 border border-gray-200 hover:bg-gray-50"
+              }`}
+            >
+              {category.name}
+            </button>
+          ))}
         </div>
 
-        {/* Navigation - Hidden on very small screens or smaller size */}
-        <div className="flex justify-end gap-2 mb-4">
-          <button
-            onClick={handlePrevious}
-            disabled={currentIndex === 0}
-            className="p-2 rounded-full border bg-white disabled:opacity-50"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          <button
-            onClick={handleNext}
-            disabled={currentIndex >= maxIndex}
-            className="p-2 rounded-full border bg-white disabled:opacity-50"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-        </div>
+        {/* Navigation - Hidden on Mobile */}
+        {!isMobile && filteredItems.length > itemsPerView && (
+          <div className="flex justify-end gap-2 mb-6">
+            <button
+              onClick={handlePrevious}
+              disabled={currentIndex === 0}
+              className="p-2 rounded-full border bg-white disabled:opacity-50 hover:bg-primary hover:text-white transition-colors cursor-pointer"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={handleNext}
+              disabled={currentIndex >= maxIndex}
+              className="p-2 rounded-full border bg-white disabled:opacity-50 hover:bg-primary hover:text-white transition-colors cursor-pointer"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+        )}
 
-        {/* Carousel Container */}
-        <div className="relative overflow-hidden">
+        {/* Portfolio Content */}
+        <div className="relative">
           <div
-            className="flex transition-transform duration-500 ease-in-out"
-            style={{
-              transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)`,
-            }}
+            className={`flex ${
+              isMobile ? "flex-col gap-8" : "transition-transform duration-500 ease-in-out"
+            }`}
+            style={
+              !isMobile
+                ? { transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)` }
+                : {}
+            }
           >
             {filteredItems.map((item) => (
               <div
                 key={item.id}
-                className="flex-shrink-0 px-2 w-full" 
-                style={{ width: `${100 / itemsPerView}%` }}
+                className={`flex-shrink-0 ${
+                  isMobile ? "w-full" : "px-3"
+                }`}
+                style={!isMobile ? { width: `${100 / itemsPerView}%` } : {}}
               >
-                <Card className="h-full flex flex-col border-0 shadow-sm hover:shadow-md transition-shadow">
-                  {/* Image */}
-                  <div className="relative aspect-video overflow-hidden rounded-t-xl">
+                <Card className="h-full flex flex-col border-0 shadow-sm hover:shadow-xl transition-all group overflow-hidden bg-white">
+                  {/* Image Area */}
+                  <div className="relative aspect-video overflow-hidden">
                     <Image
                       src={item.image || "/placeholder.svg"}
                       alt={item.title}
                       fill
-                      className="object-cover"
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                   </div>
 
-                  {/* Content */}
+                  {/* Text Content Area */}
                   <div className="p-5 flex flex-col flex-grow">
-                    <Badge variant="secondary" className="w-fit mb-2">{item.category}</Badge>
-                    <h3 className="text-lg font-bold mb-2 line-clamp-1">{item.title}</h3>
-                    <p className="text-sm text-gray-600 mb-4 line-clamp-2">{item.description}</p>
+                    <Badge className="w-fit mb-3 bg-primary/10 text-primary hover:bg-primary/20 border-0">
+                      {item.category}
+                    </Badge>
                     
+                    <h3 className="text-lg font-bold mb-2 line-clamp-2 text-gray-900">
+                      {item.title}
+                    </h3>
+                    
+                    <p className="text-sm text-gray-600 mb-4 line-clamp-2 leading-relaxed">
+                      {item.description}
+                    </p>
+                    
+                    {/* Tags Area */}
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {item.tags.map((tag) => (
+                        <span key={tag} className="text-[10px] uppercase tracking-wider px-2 py-1 bg-slate-100 text-slate-600 rounded font-semibold">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
                     <div className="mt-auto">
-                        <Link
-                            target="_blank"
-                            href={item.link || "#"}
-                            className="text-primary text-sm font-semibold flex items-center gap-1"
-                        >
-                            View Project <ArrowRight className="w-4 h-4" />
-                        </Link>
+                      <Link
+                        target="_blank"
+                        href={item.link || "#"}
+                        className="text-primary text-sm font-bold flex items-center gap-1 group/link"
+                      >
+                        VIEW PROJECT 
+                        <ArrowRight className="w-4 h-4 transition-transform group-hover/link:translate-x-1" />
+                      </Link>
                     </div>
                   </div>
                 </Card>
@@ -216,8 +233,11 @@ export default function PortfolioSection() {
           </div>
         </div>
 
+        {/* Empty State */}
         {filteredItems.length === 0 && (
-          <p className="text-center text-gray-500 mt-10">No projects found.</p>
+          <div className="text-center py-20">
+            <p className="text-gray-400">No projects found in this category.</p>
+          </div>
         )}
       </div>
     </section>
