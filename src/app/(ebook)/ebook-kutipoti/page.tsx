@@ -32,7 +32,7 @@ export default function LandingPage() {
 
   const handleReviewSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (userReview.trim().length > 5) {
+    if (userReview.trim().length > 1) {
       setShowPopup(true); // পপ-আপ দেখাবে
       setUserReview("");
       // ৩ সেকেন্ড পর পপ-আপ অটোমেটিক বন্ধ হয়ে যাবে
