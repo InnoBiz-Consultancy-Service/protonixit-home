@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from 'react';
-import { ShoppingCart, BookOpen, Star, CheckCircle, MessageCircle, Heart } from 'lucide-react';
+import { ShoppingCart, BookOpen, Star, CheckCircle, MessageCircle, Heart, X } from 'lucide-react';
 
 export default function LandingPage() {
   const [showIntro, setShowIntro] = useState(false);
-  const [reviewSubmitted, setReviewSubmitted] = useState(false);
+  const [showPopup, setShowPopup] = useState(false); // পপ-আপের জন্য স্টেট
   const [userReview, setUserReview] = useState("");
 
   const chapters = [
@@ -13,7 +13,7 @@ export default function LandingPage() {
     "রপ্তানিমুখী হস্তশিল্প", "ক্লাউড কিচেন ফুড বিজনেস",
     "লজিস্টিক ও কুরিয়ার সার্ভিস", "এড-টেক বা অনলাইন কোর্স",
     "অর্গানিক ফুড সাপ্লাই", "রিসাইক্লিং বিজনেস",
-    "বুটিক ও ফ্যাশন হাউস", "ইভেন্ট ম্যানেজমেন্ট",
+    "বুটিক ও ফ্যাশন হাউস", "イভেন্ট ম্যানেজমেন্ট",
     "পোল্ট্রি ও ফিশারি: বৈজ্ঞানিক পদ্ধতি", "সফটওয়্যার ও আইটি সলিউশন",
     "ট্যুরিজম ও ট্রাভেল এজেন্সি", "পুরানো গাড়ি কেনাবেচা (Resale)",
     "কাস্টমাইজড গিফট শপ", "ফার্মাসিউটিক্যাল ডিস্ট্রিবিউশন",
@@ -33,16 +33,36 @@ export default function LandingPage() {
   const handleReviewSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (userReview.trim().length > 5) {
-      setReviewSubmitted(true);
+      setShowPopup(true); // পপ-আপ দেখাবে
       setUserReview("");
-      setTimeout(() => setReviewSubmitted(false), 5000);
+      // ৩ সেকেন্ড পর পপ-আপ অটোমেটিক বন্ধ হয়ে যাবে
+      setTimeout(() => setShowPopup(false), 3000);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans text-gray-900">
+    <div className="min-h-screen bg-gray-50 font-sans text-gray-900 overflow-x-hidden">
       
-      {/* Hero Section - Updated with Teal/Slate Gradient and extra top margin/padding */}
+      {/* Success Pop-up Modal */}
+      {showPopup && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl text-center relative animate-in zoom-in duration-300">
+            <button 
+              onClick={() => setShowPopup(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+            >
+              <X size={20} />
+            </button>
+            <div className="bg-teal-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <CheckCircle className="text-teal-600" size={40} />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-800 mb-2">অভিনন্দন!</h3>
+            <p className="text-gray-600">আপনার রিভিউটি সফলভাবে সাবমিট হয়েছে। আপনার মতামতের জন্য ধন্যবাদ।</p>
+          </div>
+        </div>
+      )}
+
+      {/* Hero Section */}
       <header className="relative bg-gradient-to-br from-teal-700 via-teal-900 to-slate-900 text-white pt-32 pb-24 px-4 text-center overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
         <div className="relative z-10">
@@ -60,7 +80,7 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Intro Section - The Teal Accent */}
+      {/* Intro Section */}
       <section className="max-w-4xl mx-auto py-12 px-4">
         <div className="bg-white p-8 rounded-3xl shadow-xl border border-teal-100 text-center -mt-16 relative z-20">
           <h2 className="text-2xl font-bold mb-4 text-gray-700 italic">"কোটিপতি হওয়া কি শুধু ভাগ্যের ব্যাপার?"</h2>
@@ -72,13 +92,12 @@ export default function LandingPage() {
               <BookOpen className="mr-2" /> একটু পড়ে দেখতে চাই...
             </button>
           ) : (
-            <div className="text-left animate-fade-in transition-all">
+            <div className="text-left animate-in fade-in slide-in-from-top-4 duration-500">
               <h3 className="text-xl font-bold text-teal-800 mb-4 border-b border-teal-100 pb-2">ভূমিকা:</h3>
               <p className="leading-relaxed text-gray-600 whitespace-pre-line text-lg">
                 প্রিয় পাঠক,<br/>
                 আপনার কি মনে হয় কোটিপতি হওয়াটা শুধু স্বপ্নের ব্যাপার? নাকি হাতে গোনা কিছু মানুষের জন্য বরাদ্দ? যদি এমনটা ভেবে থাকেন, তাহলে এই বইটি আপনার সেই ধারণা বদলে দেবে। বাংলাদেশ একটি অপার সম্ভাবনার দেশ, যেখানে সঠিক আইডিয়া, কঠোর পরিশ্রম আর একটু স্মার্ট কৌশলের মাধ্যমে যে কেউই তার আর্থিক অবস্থার পরিবর্তন ঘটাতে পারে।<br/><br/>
                 এই বইটি আপনাকে এমন ২০টি প্রমানিত এবং কার্যকরী পদ্ধতি শেখাবে, যা বাংলাদেশের বর্তমান বাজারে অত্যন্ত সফল। এখানে কোনো অলৌকিক ফর্মুলা নেই, আছে বাস্তবভিত্তিক কৌশল যা আপনাকে শূন্য থেকে শুরু করে একজন সফল উদ্যোক্তা এবং একজন কোটিপতি হিসেবে গড়ে তুলতে সাহায্য করবে।<br/><br/>
-                স্বপ্ন দেখতে শুরু করুন, কারণ "তুমিও হবে কোটিপতি" - এই বিশ্বাস নিয়েই আমরা আমাদের যাত্রা শুরু করছি।<br/><br/>
                 শুভকামনা!
               </p>
               <button onClick={() => setShowIntro(false)} className="mt-6 text-sm text-teal-500 font-bold hover:text-teal-700 uppercase tracking-widest">বন্ধ করুন</button>
@@ -87,7 +106,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Table of Contents - Teal Theme */}
+      {/* Table of Contents */}
       <section className="bg-white py-20 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center justify-center mb-12">
@@ -106,7 +125,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Review Section - Teal/Slate Theme */}
+      {/* Review Section */}
       <section className="py-20 px-4 bg-slate-50 border-t border-gray-100">
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-16 text-slate-800">পাঠক কি বলছেন?</h2>
@@ -127,37 +146,29 @@ export default function LandingPage() {
           
           {/* Review Submit Area */}
           <div className="max-w-2xl mx-auto bg-white p-10 rounded-3xl shadow-inner border border-teal-50">
-            {reviewSubmitted ? (
-              <div className="py-10 animate-fade-in">
-                <CheckCircle className="text-teal-500 mx-auto mb-4" size={60} />
-                <h3 className="text-2xl font-bold text-slate-800">ধন্যবাদ!</h3>
-                <p className="text-gray-600">আপনার রিভিউটি সফলভাবে জমা হয়েছে।</p>
-              </div>
-            ) : (
-              <form onSubmit={handleReviewSubmit}>
-                <h3 className="text-xl font-bold mb-6 text-teal-800 flex items-center justify-center">
-                  <MessageCircle className="mr-2" /> আপনার মতামত দিন
-                </h3>
-                <textarea 
-                  value={userReview}
-                  onChange={(e) => setUserReview(e.target.value)}
-                  required
-                  className="w-full p-4 rounded-xl border-2 border-gray-100 mb-6 focus:border-teal-500 outline-none transition-all min-h-[140px]" 
-                  placeholder="বইটি সম্পর্কে আপনার মূল্যবান মতামত লিখুন..."
-                ></textarea>
-                <button 
-                  type="submit"
-                  className="bg-teal-600 text-white px-12 py-3 rounded-full font-bold hover:bg-teal-700 shadow-lg transition-all hover:scale-105"
-                >
-                  সাবমিট করুন
-                </button>
-              </form>
-            )}
+            <form onSubmit={handleReviewSubmit}>
+              <h3 className="text-xl font-bold mb-6 text-teal-800 flex items-center justify-center">
+                <MessageCircle className="mr-2" /> আপনার মতামত দিন
+              </h3>
+              <textarea 
+                value={userReview}
+                onChange={(e) => setUserReview(e.target.value)}
+                required
+                className="w-full p-4 rounded-xl border-2 border-gray-100 mb-6 focus:border-teal-500 outline-none transition-all min-h-[140px]" 
+                placeholder="বইটি সম্পর্কে আপনার মূল্যবান মতামত লিখুন..."
+              ></textarea>
+              <button 
+                type="submit"
+                className="bg-teal-600 text-white px-12 py-3 rounded-full font-bold hover:bg-teal-700 shadow-lg transition-all hover:scale-105"
+              >
+                সাবমিট করুন
+              </button>
+            </form>
           </div>
         </div>
       </section>
 
-      {/* Footer - Slate & Teal Accent */}
+      {/* Footer */}
       <footer className="bg-slate-900 text-white py-16 px-4 text-center">
         <div className="max-w-4xl mx-auto">
           <p className="text-2xl font-bold mb-4 tracking-wider text-teal-400">তুমিও হবে কোটিপতি</p>
