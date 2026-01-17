@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Hind_Siliguri } from "next/font/google"; // বাংলা ফন্টের জন্য সেরা
-import "./global.css";
+import "./ebook.css";
 
 // বাংলা ফন্ট সেটআপ
 const hindSiliguri = Hind_Siliguri({
