@@ -46,7 +46,17 @@ const portfolioItems: PortfolioItem[] = [
     link: "https://www.nikahlife.com",
   },
   {
-    id: "3",
+    id: "3", 
+    title: "Chef Buddy – Your Ultimate Digital Kitchen Assistant",
+    category: "Web Development",
+    description:
+      "Chef Buddy is a modern web application designed to help food enthusiasts discover recipes, plan meals, and manage kitchen tasks efficiently.",
+    image: "https://i.ibb.co.com/vCt2Xcjf/Screenshot-2026-01-27-at-4-00-26-PM.png",
+    tags: ["Next.js", "React", "Node.js", "Tailwind CSS"],
+    link: "https://chef-buddy.com",
+  },
+  {
+    id: "4",
     title: "Brand Identity Design",
     category: "Graphics Design",
     description:
@@ -54,10 +64,10 @@ const portfolioItems: PortfolioItem[] = [
     image:
       "https://i.ibb.co.com/Z6Jg52qt/571126751-122102432577079696-4724050867222812627-n.jpg",
     tags: ["Branding", "Logo Design", "Visual Identity"],
-    link: "https://www.facebook.com/profile.php?id=61582390889742",
+    link: "https://www.facebook.com/share/p/1KqHGZT2Yq/",
   },
   {
-    id: "4",
+    id: "5",
     title: "Data Science Educational Video Editing – Professional & Engaging",
     category: "Video Editing",
     description:
